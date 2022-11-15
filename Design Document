@@ -1,6 +1,8 @@
-Project Name: Mnemonic Converter 
+Project Name: 
+Mnemonic Converter 
  
-Outline: Create a cross-platform mobile application that can validate a Mnemonic phrase and convert it from one language to another. 
+Outline: 
+Create a cross-platform mobile application that can validate a Mnemonic phrase and convert it from one language to another. 
  
 Language & Tools:  
 TypeScript 
