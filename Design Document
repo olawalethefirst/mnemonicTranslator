@@ -1,18 +1,18 @@
 Project Name: 
-Mnemonic Converter 
+Mnemonic Translator 
  
 Outline: 
-Create a cross-platform mobile application that can validate a Mnemonic phrase and convert it from one language to another. 
+Create a cross-platform mobile application that can validate a Mnemonic phrase and translates it from one language to another. 
  
 Language & Tools:  
 TypeScript 
  
 MVP Functionalities: 
 Validate mnemonic phrase. 
-Convert mnemonic phrase to another language. 
-Create algorithm for mapping indexes of Mnemonic phrase during conversion 
+translates mnemonic phrase to another language. 
+Create algorithm for mapping indexes of Mnemonic phrase during translation 
  
 Extra Functionalities: 
 Create frontend UI for mnemonic phrase validation. 
-Create frontend UI for mnemonic conversion between supported languages. 
+Create frontend UI for mnemonic translation between supported languages. 
  
