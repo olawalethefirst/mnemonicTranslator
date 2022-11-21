@@ -12,8 +12,17 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		23C2AD4EC82D42468BF4B454 /* Inter ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2627F6BD930D48F0ABAA0800 /* Inter ExtraLight.ttf */; };
+		5C8627EE61F64259BBFE6B69 /* Inter Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EFFD1CD3B12C44C69E79CFC1 /* Inter Black.ttf */; };
+		642AF5E1629E40AE9D8FD0FC /* Inter Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 336BD4EF16D24C119AC29A74 /* Inter Thin.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-mnemonicTranslator-mnemonicTranslatorTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-mnemonicTranslator-mnemonicTranslatorTests.a */; };
+		789DB39B5D5F4291BB83472D /* Inter ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6ECEE871325D44AC8E4BDFBB /* Inter ExtraBold.ttf */; };
+		7B79B3B3C34E494E9E5A7124 /* Inter SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AF10C1CA2B0346CB96D8F372 /* Inter SemiBold.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		82F393F25D4441A69417EB30 /* Inter Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4074A3E83A60436197432FC6 /* Inter Medium.ttf */; };
+		A9ECBD9A0BC9476BBCF3730A /* Inter Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A602CE3FE07F4DD1AA63E469 /* Inter Bold.ttf */; };
+		AC3517647C484FD69820A264 /* Inter Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 768BEB79746F4A2892FE3846 /* Inter Light.ttf */; };
+		D1BF155E84604F6A8A97E415 /* Inter Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22395EC3D4B54BBCA67FED37 /* Inter Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,13 +46,22 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = mnemonicTranslator/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = mnemonicTranslator/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-mnemonicTranslator-mnemonicTranslatorTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mnemonicTranslator-mnemonicTranslatorTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		22395EC3D4B54BBCA67FED37 /* Inter Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter Regular.ttf"; path = "../assets/fonts/Inter Regular.ttf"; sourceTree = "<group>"; };
+		2627F6BD930D48F0ABAA0800 /* Inter ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter ExtraLight.ttf"; path = "../assets/fonts/Inter ExtraLight.ttf"; sourceTree = "<group>"; };
+		336BD4EF16D24C119AC29A74 /* Inter Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter Thin.ttf"; path = "../assets/fonts/Inter Thin.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-mnemonicTranslator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mnemonicTranslator.debug.xcconfig"; path = "Target Support Files/Pods-mnemonicTranslator/Pods-mnemonicTranslator.debug.xcconfig"; sourceTree = "<group>"; };
+		4074A3E83A60436197432FC6 /* Inter Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter Medium.ttf"; path = "../assets/fonts/Inter Medium.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-mnemonicTranslator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mnemonicTranslator.release.xcconfig"; path = "Target Support Files/Pods-mnemonicTranslator/Pods-mnemonicTranslator.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-mnemonicTranslator-mnemonicTranslatorTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mnemonicTranslator-mnemonicTranslatorTests.debug.xcconfig"; path = "Target Support Files/Pods-mnemonicTranslator-mnemonicTranslatorTests/Pods-mnemonicTranslator-mnemonicTranslatorTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-mnemonicTranslator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mnemonicTranslator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6ECEE871325D44AC8E4BDFBB /* Inter ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter ExtraBold.ttf"; path = "../assets/fonts/Inter ExtraBold.ttf"; sourceTree = "<group>"; };
+		768BEB79746F4A2892FE3846 /* Inter Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter Light.ttf"; path = "../assets/fonts/Inter Light.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = mnemonicTranslator/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-mnemonicTranslator-mnemonicTranslatorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mnemonicTranslator-mnemonicTranslatorTests.release.xcconfig"; path = "Target Support Files/Pods-mnemonicTranslator-mnemonicTranslatorTests/Pods-mnemonicTranslator-mnemonicTranslatorTests.release.xcconfig"; sourceTree = "<group>"; };
+		A602CE3FE07F4DD1AA63E469 /* Inter Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter Bold.ttf"; path = "../assets/fonts/Inter Bold.ttf"; sourceTree = "<group>"; };
+		AF10C1CA2B0346CB96D8F372 /* Inter SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter SemiBold.ttf"; path = "../assets/fonts/Inter SemiBold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		EFFD1CD3B12C44C69E79CFC1 /* Inter Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter Black.ttf"; path = "../assets/fonts/Inter Black.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +140,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				D6639AB6A6054FCFA365A0D2 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -146,6 +165,22 @@
 				89C6BE57DB24E9ADA2F236DE /* Pods-mnemonicTranslator-mnemonicTranslatorTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		D6639AB6A6054FCFA365A0D2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EFFD1CD3B12C44C69E79CFC1 /* Inter Black.ttf */,
+				A602CE3FE07F4DD1AA63E469 /* Inter Bold.ttf */,
+				6ECEE871325D44AC8E4BDFBB /* Inter ExtraBold.ttf */,
+				2627F6BD930D48F0ABAA0800 /* Inter ExtraLight.ttf */,
+				768BEB79746F4A2892FE3846 /* Inter Light.ttf */,
+				4074A3E83A60436197432FC6 /* Inter Medium.ttf */,
+				22395EC3D4B54BBCA67FED37 /* Inter Regular.ttf */,
+				AF10C1CA2B0346CB96D8F372 /* Inter SemiBold.ttf */,
+				336BD4EF16D24C119AC29A74 /* Inter Thin.ttf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,6 +279,15 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				5C8627EE61F64259BBFE6B69 /* Inter Black.ttf in Resources */,
+				A9ECBD9A0BC9476BBCF3730A /* Inter Bold.ttf in Resources */,
+				789DB39B5D5F4291BB83472D /* Inter ExtraBold.ttf in Resources */,
+				23C2AD4EC82D42468BF4B454 /* Inter ExtraLight.ttf in Resources */,
+				AC3517647C484FD69820A264 /* Inter Light.ttf in Resources */,
+				82F393F25D4441A69417EB30 /* Inter Medium.ttf in Resources */,
+				D1BF155E84604F6A8A97E415 /* Inter Regular.ttf in Resources */,
+				7B79B3B3C34E494E9E5A7124 /* Inter SemiBold.ttf in Resources */,
+				642AF5E1629E40AE9D8FD0FC /* Inter Thin.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +477,7 @@
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-mnemonicTranslator-mnemonicTranslatorTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = DPFZX86B8Z;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -451,6 +496,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mnemonicTranslator.app/mnemonicTranslator";
 			};
 			name = Debug;
@@ -461,6 +510,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = DPFZX86B8Z;
 				INFOPLIST_FILE = mnemonicTranslatorTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -475,6 +525,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mnemonicTranslator.app/mnemonicTranslator";
 			};
 			name = Release;
@@ -486,6 +540,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DPFZX86B8Z;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = mnemonicTranslator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -516,6 +571,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DPFZX86B8Z;
 				INFOPLIST_FILE = mnemonicTranslator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

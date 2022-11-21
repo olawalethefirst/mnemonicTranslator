@@ -1,25 +1,27 @@
 import {View, Text} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import palette from '../palette';
-import {screenMargin} from '../constant';
+import constants from '../constants';
 
 const styles = ScaledSheet.create({
   title: {
     color: palette.white,
-    fontSize: '18@msr',
-    fontWeight: '700',
+    fontSize: '18.5@msr',
+    fontFamily: 'Inter Bold',
   },
   container: {
     backgroundColor: palette.green,
     paddingVertical: '15@mvsr',
-    paddingHorizontal: `${screenMargin}@msr`,
+    paddingHorizontal: `${constants.screenMargin}@msr`,
   },
 });
 
 function Header() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Mnemonic Translator</Text>
+      <Text style={[styles.title, {fontFamily: 'Inter ExtraBold'}]}>
+        Mnemonic Translator
+      </Text>
     </View>
   );
 }
