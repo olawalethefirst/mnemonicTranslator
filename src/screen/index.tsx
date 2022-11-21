@@ -1,4 +1,4 @@
-import {useReducer, Reducer, useRef} from 'react';
+import {useState, useRef, useContext} from 'react';
 import {
   ScrollView,
   Text,
@@ -8,64 +8,18 @@ import {
   LayoutChangeEvent,
   ActivityIndicator,
 } from 'react-native';
-import {ScaledSheet} from 'react-native-size-matters';
 import palette from '../palette';
 import constants from '../constants';
 import styles from './styles';
-
-// string literals
-const INPUT_VALIDATING = 'INPUT_VALIDATING';
-const INPUT_EMPTY = 'INPUT_EMPTY';
-const INPUT_INVALID = 'INPUT_INVALID';
-const INPUT_CHECKSUM_FAILED = 'INPUT_CHECKSUM_FAILED';
-const INPUT_VALID = 'INPUT_VALID';
-const UPDATE_INPUT_LABEL_HEIGHT = 'UPDATE_INPUT_LABEL_HEIGHT';
-const UPDATE_FROM_MNEMONIC_PHRASE = 'UPDATE_FROM_MNEMONIC_PHRASE';
-
-// type definitions
-interface UpdateInputLabelAction {
-  type: typeof UPDATE_INPUT_LABEL_HEIGHT;
-  payload: number;
-}
-interface UpdateTextInputAction {
-  type: typeof UPDATE_FROM_MNEMONIC_PHRASE;
-  payload: string;
-}
-type Action = UpdateInputLabelAction | UpdateTextInputAction;
-type InputStatus =
-  | typeof INPUT_EMPTY
-  | typeof INPUT_INVALID
-  | typeof INPUT_CHECKSUM_FAILED
-  | typeof INPUT_VALID
-  | typeof INPUT_VALIDATING;
-interface InitialState {
-  inputLabelHeight: number;
-  fromLaguage: string;
-  toLanguage: string;
-  fromMnemonicPhrase: string;
-  toMnemonicPhrase: string;
-  inputStatus: InputStatus;
-}
-
-// reducer ingredients
-const initialState = {
-  inputLabelHeight: 0,
-  fromLaguage: '',
-  toLanguage: '',
-  fromMnemonicPhrase: '',
-  toMnemonicPhrase: '',
-  inputStatus: INPUT_EMPTY,
-} as const;
-const reducer = (state: InitialState, action: Action) => {
-  switch (action.type) {
-    case UPDATE_INPUT_LABEL_HEIGHT:
-      return {...state, inputLabelHeight: action.payload};
-    case UPDATE_FROM_MNEMONIC_PHRASE:
-      return {...state, fromMnemonicPhrase: action.payload};
-    default:
-      throw new Error('incorrect action type used');
-  }
-};
+import {
+  INPUT_VALID,
+  INPUT_INVALID,
+  INPUT_CHECKSUM_FAILED,
+  INPUT_VALIDATING,
+  INPUT_EMPTY,
+  InputStatus,
+} from '../Providers/MnemonicProvider/useMnemonic';
+import {MnemonicContext} from '../Providers/MnemonicProvider/MnemonicProvider';
 
 // helperFunctions
 const parseInputValidationText = (inputStatus: InputStatus) => {
@@ -94,14 +48,12 @@ const parseInputValidationTextColor = (inputStatus: InputStatus) => {
 };
 
 function Screen() {
-  const [state, dispatch] = useReducer<Reducer<InitialState, Action>>(
-    reducer,
-    initialState,
-  );
+  const [inputLabelHeight, setInputLabelHeight] = useState(0);
+  const {mnemonicState, updateFromMenmonicPhrase} = useContext(MnemonicContext);
   const inputRef = useRef<TextInput | null>(null);
 
   // state
-  const {inputLabelHeight, fromMnemonicPhrase, inputStatus} = state;
+  const {fromMnemonicPhrase, inputStatus} = mnemonicState;
   const disableButton =
     inputStatus === INPUT_VALIDATING ||
     inputStatus === INPUT_EMPTY ||
@@ -109,19 +61,10 @@ function Screen() {
 
   // helperFunctions
   const updateInputLabelHeight = (e: LayoutChangeEvent) => {
-    dispatch({
-      type: UPDATE_INPUT_LABEL_HEIGHT,
-      payload: e.nativeEvent.layout.height,
-    });
+    setInputLabelHeight(e.nativeEvent.layout.height);
   };
   const focusTextInput = () => {
     inputRef.current?.focus();
-  };
-  const updateFromMenmonicPhrase = (text: string) => {
-    dispatch({
-      type: UPDATE_FROM_MNEMONIC_PHRASE,
-      payload: text,
-    });
   };
 
   // state dependent styles

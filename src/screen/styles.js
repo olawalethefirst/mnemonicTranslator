@@ -18,7 +18,8 @@ export default ScaledSheet.create({
   },
   inputContainer: {
     marginTop: '35@mvsr',
-    height: '150@mvsr',
+    width: '100%',
+    aspectRatio: 1.75,
     borderWidth: 2,
     borderColor: palette.green,
     borderRadius: '7.5@msr',

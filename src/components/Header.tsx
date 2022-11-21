@@ -11,12 +11,13 @@ const styles = ScaledSheet.create({
   },
   container: {
     backgroundColor: palette.green,
-    paddingVertical: '15@mvsr',
     paddingHorizontal: `${constants.screenMargin}@msr`,
+    height: `${constants.headerHeight}@mvsr`,
+    justifyContent: 'center',
   },
 });
 
-function Header() {
+export default function Header() {
   return (
     <View style={styles.container}>
       <Text style={[styles.title, {fontFamily: 'Inter ExtraBold'}]}>
@@ -25,5 +26,3 @@ function Header() {
     </View>
   );
 }
-
-export default Header;
