@@ -5,6 +5,8 @@ import Screen from './src/screen';
 import palette from './src/palette';
 import ChooseFromLanguage from './src/components/ChooseFromLanguage';
 import ChooseToLanguage from './src/components/ChooseToLanguage';
+import BroadcastToMnemonicPhrase from './src/components/BroadcastToMnemonicPhrase';
+import BroadcastChecksumFailed from './src/components/BroadcastChecksumFailed';
 
 const styles = StyleSheet.create({
   containerWithHeader: {
@@ -27,7 +29,8 @@ function App() {
           edges={['bottom', 'left', 'right']}
           style={styles.container}>
           <Screen />
-          <ChooseToLanguage isVisible />
+          {/* <ChooseToLanguage isVisible /> */}
+          <BroadcastToMnemonicPhrase isVisible />
         </SafeAreaView>
       </SafeAreaView>
     </SafeAreaProvider>

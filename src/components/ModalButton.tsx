@@ -40,5 +40,5 @@ export default function ModalButton({
 }
 
 ModalButton.defaultProps = {
-  submitType: true,
+  submitType: false,
 };

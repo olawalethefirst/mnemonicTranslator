@@ -11,6 +11,7 @@ const styles = ScaledSheet.create({
   container: {
     width: '75%',
     height: '85%',
+    justifyContent: 'center',
   },
 });
 
