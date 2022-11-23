@@ -21,7 +21,9 @@ const styles = ScaledSheet.create({
 export default function ModalText({text}: {text: string}) {
   return (
     <View style={styles.titleContainer}>
-      <Text style={styles.title}>{text}</Text>
+      <Text selectable={false} style={styles.title}>
+        {text}
+      </Text>
     </View>
   );
 }
