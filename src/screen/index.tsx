@@ -1,4 +1,4 @@
-import {useState, useRef, useContext} from 'react';
+import {useState, useRef, useContext, useCallback} from 'react';
 import {
   ScrollView,
   Text,
@@ -60,12 +60,12 @@ function Screen() {
     inputStatus === mnemonicStatus.INVALID;
 
   // helperFunctions
-  const updateInputLabelHeight = (e: LayoutChangeEvent) => {
+  const updateInputLabelHeight = useCallback((e: LayoutChangeEvent) => {
     setInputLabelHeight(e.nativeEvent.layout.height);
-  };
-  const focusTextInput = () => {
+  }, []);
+  const focusTextInput = useCallback(() => {
     inputRef.current?.focus();
-  };
+  }, []);
 
   // state dependent styles
   const styles2 = {
