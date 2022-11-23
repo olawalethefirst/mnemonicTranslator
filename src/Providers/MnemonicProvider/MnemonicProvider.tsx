@@ -1,7 +1,7 @@
 import {createContext, PropsWithChildren} from 'react';
-import useMnemonic, {useMnemonicInitialValue} from './useMnemonic';
+import useMnemonic, {useMnemonicInitialReturn} from './useMnemonic';
 
-export const MnemonicContext = createContext(useMnemonicInitialValue);
+export const MnemonicContext = createContext(useMnemonicInitialReturn);
 
 function MnemonicProvider({children}: PropsWithChildren) {
   const value = useMnemonic();

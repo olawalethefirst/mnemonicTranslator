@@ -18,11 +18,13 @@ const styles = ScaledSheet.create({
 function ModalContainer({
   isVisible,
   children,
-}: PropsWithChildren<{isVisible: boolean}>) {
+  onModalHide,
+}: PropsWithChildren<{isVisible: boolean; onModalHide?: () => void}>) {
   return (
     <Modal
       coverScreen={false}
       isVisible={isVisible}
+      onModalHide={onModalHide}
       // onBackButtonPress
       // onBackdropPress
       // onModalHide
@@ -39,5 +41,9 @@ function ModalContainer({
     </Modal>
   );
 }
+
+ModalContainer.defaultProps = {
+  onModalHide: undefined,
+};
 
 export default ModalContainer;

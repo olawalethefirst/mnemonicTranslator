@@ -22,9 +22,11 @@ const styles = ScaledSheet.create({
 export default function ModalButton({
   title,
   submitType,
+  onPress,
 }: {
   title: string;
   submitType?: boolean;
+  onPress: () => void;
 }) {
   const styles2 = {
     buttonTitle: {color: submitType ? palette.green : palette.red},
@@ -33,7 +35,8 @@ export default function ModalButton({
   return (
     <TouchableOpacity
       activeOpacity={constants.buttonActiveOpacity}
-      style={styles.button}>
+      style={styles.button}
+      onPress={onPress}>
       <Text style={[styles.buttonTitle, styles2.buttonTitle]}>{title}</Text>
     </TouchableOpacity>
   );

@@ -1,5 +1,6 @@
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {StatusBar, StyleSheet} from 'react-native';
+import MnemonicProvider from './src/Providers/MnemonicProvider/MnemonicProvider';
 import Header from './src/components/Header';
 import Screen from './src/screen';
 import palette from './src/palette';
@@ -22,17 +23,21 @@ const styles = StyleSheet.create({
 function App() {
   return (
     <SafeAreaProvider>
-      <SafeAreaView edges={['top']} style={styles.containerWithHeader}>
-        <StatusBar barStyle="light-content" backgroundColor={palette.green} />
-        <Header />
-        <SafeAreaView
-          edges={['bottom', 'left', 'right']}
-          style={styles.container}>
-          <Screen />
-          {/* <ChooseToLanguage isVisible /> */}
-          <BroadcastToMnemonicPhrase isVisible />
+      <MnemonicProvider>
+        <SafeAreaView edges={['top']} style={styles.containerWithHeader}>
+          <StatusBar barStyle="light-content" backgroundColor={palette.green} />
+          <Header />
+          <SafeAreaView
+            edges={['bottom', 'left', 'right']}
+            style={styles.container}>
+            <Screen />
+            <ChooseFromLanguage />
+            <ChooseToLanguage />
+            <BroadcastToMnemonicPhrase />
+            <BroadcastChecksumFailed />
+          </SafeAreaView>
         </SafeAreaView>
-      </SafeAreaView>
+      </MnemonicProvider>
     </SafeAreaProvider>
   );
 }

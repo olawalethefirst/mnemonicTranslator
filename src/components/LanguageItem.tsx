@@ -1,14 +1,9 @@
 import {TouchableOpacity, View, Text} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
-import constants from '../constants';
+import constants, {Language} from '../constants';
 import palette from '../palette';
 
-const {
-  languages,
-  toLanguageListTitle,
-  fromLanguageListTitle,
-  buttonActiveOpacity,
-} = constants;
+const {buttonActiveOpacity} = constants;
 
 const styles = ScaledSheet.create({
   buttonTitle: {
@@ -20,12 +15,11 @@ const styles = ScaledSheet.create({
 
 export default function LanguageItem({
   content,
+  onPressItem,
   lastItem,
 }: {
-  content:
-    | typeof languages[number]
-    | typeof toLanguageListTitle
-    | typeof fromLanguageListTitle;
+  content: Language;
+  onPressItem: (language: Language) => void;
   lastItem?: boolean;
 }) {
   const styles2 = ScaledSheet.create({
@@ -48,6 +42,7 @@ export default function LanguageItem({
     <View style={[styles2.container]}>
       <View style={styles2.buttonBorderContainer}>
         <TouchableOpacity
+          onPress={() => onPressItem(content)}
           activeOpacity={buttonActiveOpacity}
           style={styles2.button}>
           <Text style={[styles.buttonTitle, styles2.buttonTitle]}>

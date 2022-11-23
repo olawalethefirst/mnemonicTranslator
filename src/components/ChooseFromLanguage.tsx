@@ -1,13 +1,20 @@
+import {useContext} from 'react';
 import LanguageList from './LanguageList';
 import ModalContainer from './ModalContainer';
 import ModalTitle from './ModalTitle';
 import constants from '../constants';
+import {MnemonicContext} from '../Providers/MnemonicProvider/MnemonicProvider';
 
-export default function ChooseFromLanguage({isVisible}: {isVisible: boolean}) {
+export default function ChooseFromLanguage() {
+  const {
+    mnemonicState: {chooseFromLanguageVisibile},
+    updateFromMnemonicLanguage,
+  } = useContext(MnemonicContext);
+
   return (
-    <ModalContainer isVisible={isVisible}>
+    <ModalContainer isVisible={chooseFromLanguageVisibile}>
       <ModalTitle title={constants.fromLanguageListTitle} />
-      <LanguageList />
+      <LanguageList onPressItem={updateFromMnemonicLanguage} />
     </ModalContainer>
   );
 }

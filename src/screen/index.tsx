@@ -11,36 +11,31 @@ import {
 import palette from '../palette';
 import constants from '../constants';
 import styles from './styles';
-import {
-  INPUT_VALID,
-  INPUT_INVALID,
-  INPUT_CHECKSUM_FAILED,
-  INPUT_VALIDATING,
-  INPUT_EMPTY,
-  InputStatus,
-} from '../Providers/MnemonicProvider/useMnemonic';
+import {InputStatus} from '../Providers/MnemonicProvider/useMnemonic';
 import {MnemonicContext} from '../Providers/MnemonicProvider/MnemonicProvider';
+
+const {mnemonicStatus} = constants;
 
 // helperFunctions
 const parseInputValidationText = (inputStatus: InputStatus) => {
   switch (inputStatus) {
-    case INPUT_VALID:
+    case mnemonicStatus.VALID:
       return 'Mnemonic phrase valid';
-    case INPUT_INVALID:
+    case mnemonicStatus.INVALID:
       return 'Mnemonic phrase invalid';
-    case INPUT_CHECKSUM_FAILED:
+    case mnemonicStatus.CHECKSUM_FAILED:
       return 'Mnemonic phrase failed checksum test';
     default:
-      return '';
+      return ' ';
   }
 };
 const parseInputValidationTextColor = (inputStatus: InputStatus) => {
   switch (inputStatus) {
-    case INPUT_VALID:
+    case mnemonicStatus.VALID:
       return palette.green;
-    case INPUT_INVALID:
+    case mnemonicStatus.INVALID:
       return palette.red;
-    case INPUT_CHECKSUM_FAILED:
+    case mnemonicStatus.CHECKSUM_FAILED:
       return palette.amber;
     default:
       return palette.white;
@@ -49,15 +44,20 @@ const parseInputValidationTextColor = (inputStatus: InputStatus) => {
 
 function Screen() {
   const [inputLabelHeight, setInputLabelHeight] = useState(0);
-  const {mnemonicState, updateFromMenmonicPhrase} = useContext(MnemonicContext);
+  const {
+    mnemonicState,
+    updateFromMenmonicPhrase,
+    validateFromMnemonice,
+    onTranslatePress,
+  } = useContext(MnemonicContext);
   const inputRef = useRef<TextInput | null>(null);
 
   // state
   const {fromMnemonicPhrase, inputStatus} = mnemonicState;
   const disableButton =
-    inputStatus === INPUT_VALIDATING ||
-    inputStatus === INPUT_EMPTY ||
-    inputStatus === INPUT_INVALID;
+    inputStatus === mnemonicStatus.VALIDATING ||
+    inputStatus === mnemonicStatus.EMPTY ||
+    inputStatus === mnemonicStatus.INVALID;
 
   // helperFunctions
   const updateInputLabelHeight = (e: LayoutChangeEvent) => {
@@ -102,6 +102,9 @@ function Screen() {
           multiline
           style={styles.input}
           textAlignVertical="top"
+          autoCapitalize="none"
+          autoCorrect={false}
+          onBlur={validateFromMnemonice}
           // onEndEditing={}
           // onSubmitEditing
         />
@@ -110,10 +113,11 @@ function Screen() {
         {parseInputValidationText(inputStatus)}
       </Text>
       <TouchableOpacity
-        disabled={!disableButton}
+        onPress={onTranslatePress}
+        disabled={disableButton}
         activeOpacity={constants.buttonActiveOpacity}
         style={[styles.button, styles2.button]}>
-        {inputStatus === INPUT_VALIDATING ? (
+        {inputStatus === mnemonicStatus.VALIDATING ? (
           <ActivityIndicator color={palette.white} />
         ) : (
           <Text style={[styles.buttonTitle]}>Translate</Text>

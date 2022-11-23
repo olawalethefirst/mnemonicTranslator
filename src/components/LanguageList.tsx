@@ -1,6 +1,6 @@
 import {ScrollView} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
-import constants from '../constants';
+import constants, {Language} from '../constants';
 import palette from '../palette';
 import LanguageItem from './LanguageItem';
 
@@ -15,12 +15,17 @@ const styles = ScaledSheet.create({
   },
 });
 
-export default function LanguageList() {
+export default function LanguageList({
+  onPressItem,
+}: {
+  onPressItem: (language: Language) => void;
+}) {
   return (
     <ScrollView style={styles.container}>
       {languages.map((language, index) => (
         <LanguageItem
           content={language}
+          onPressItem={onPressItem}
           lastItem={index === languages.length - 1}
           // eslint-disable-next-line react/no-array-index-key
           key={index}
