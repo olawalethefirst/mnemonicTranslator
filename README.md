@@ -2,7 +2,7 @@
 Validates a wallet's mnemonic phrase backup and translates it from one supported language to another.
 
 ## Description
-This application provides a simplified interface for users to translate their existing Mnemonic phrase backup between [bip-39](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md) supported languages. It also validates the checksum property and informs the user accordingly.
+In a bid to make Bitcoin more accessible, this application provides a simplified interface for users to translate their existing Mnemonic phrase backup between [bip-39](https://github.com/bitcoin/bips/blob/master/bip-0039/bip-0039-wordlists.md) supported languages. It also validates the checksum property and informs the user accordingly.
 
 ## Setup
 To test the app, a clone of the repository and subsequent running of "***npm install***" in the directory will install the necessary packages. Its features can be simulated using an IOS simulator, Android emulator or physical devices. 
