@@ -3,8 +3,10 @@ import palette from '../palette';
 import constants from '../constants';
 
 export default ScaledSheet.create({
-  container: {
+  keyboardAvoidingView: {
     flex: 1,
+  },
+  container: {
     backgroundColor: palette.whiteBackground,
     paddingHorizontal: `${constants.screenMargin}@msr`,
   },

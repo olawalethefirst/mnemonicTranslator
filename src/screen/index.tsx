@@ -3,10 +3,12 @@ import {
   ScrollView,
   Text,
   View,
+  KeyboardAvoidingView,
   TextInput,
   TouchableOpacity,
   LayoutChangeEvent,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 import palette from '../palette';
 import constants from '../constants';
@@ -82,48 +84,52 @@ function Screen() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.header}>Enter your {'\n'}Mnemonic phrase</Text>
-      </View>
-      <TouchableOpacity
-        onPress={focusTextInput}
-        activeOpacity={constants.buttonActiveOpacity}
-        style={styles.inputContainer}>
-        <Text
-          onLayout={updateInputLabelHeight}
-          style={[styles.inputLabel, styles2.inputLabel]}>
-          words separated by spaces
+    <KeyboardAvoidingView
+      style={styles.keyboardAvoidingView}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.header}>Enter your {'\n'}Mnemonic phrase</Text>
+        </View>
+        <TouchableOpacity
+          onPress={focusTextInput}
+          activeOpacity={constants.buttonActiveOpacity}
+          style={styles.inputContainer}>
+          <Text
+            onLayout={updateInputLabelHeight}
+            style={[styles.inputLabel, styles2.inputLabel]}>
+            words separated by spaces
+          </Text>
+          <TextInput
+            value={fromMnemonicPhrase}
+            onChangeText={updateFromMenmonicPhrase}
+            ref={inputRef}
+            multiline
+            style={styles.input}
+            textAlignVertical="top"
+            autoCapitalize="none"
+            autoCorrect={false}
+            onBlur={validateFromMnemonice}
+            // onEndEditing={}
+            // onSubmitEditing
+          />
+        </TouchableOpacity>
+        <Text style={[styles.inputValidationText, styles2.inputValidationText]}>
+          {parseInputValidationText(inputStatus)}
         </Text>
-        <TextInput
-          value={fromMnemonicPhrase}
-          onChangeText={updateFromMenmonicPhrase}
-          ref={inputRef}
-          multiline
-          style={styles.input}
-          textAlignVertical="top"
-          autoCapitalize="none"
-          autoCorrect={false}
-          onBlur={validateFromMnemonice}
-          // onEndEditing={}
-          // onSubmitEditing
-        />
-      </TouchableOpacity>
-      <Text style={[styles.inputValidationText, styles2.inputValidationText]}>
-        {parseInputValidationText(inputStatus)}
-      </Text>
-      <TouchableOpacity
-        onPress={onTranslatePress}
-        disabled={disableButton}
-        activeOpacity={constants.buttonActiveOpacity}
-        style={[styles.button, styles2.button]}>
-        {inputStatus === mnemonicStatus.VALIDATING ? (
-          <ActivityIndicator color={palette.white} />
-        ) : (
-          <Text style={[styles.buttonTitle]}>Translate</Text>
-        )}
-      </TouchableOpacity>
-    </ScrollView>
+        <TouchableOpacity
+          onPress={onTranslatePress}
+          disabled={disableButton}
+          activeOpacity={constants.buttonActiveOpacity}
+          style={[styles.button, styles2.button]}>
+          {inputStatus === mnemonicStatus.VALIDATING ? (
+            <ActivityIndicator color={palette.white} />
+          ) : (
+            <Text style={[styles.buttonTitle]}>Translate</Text>
+          )}
+        </TouchableOpacity>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
