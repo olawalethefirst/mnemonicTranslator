@@ -110,8 +110,6 @@ function Screen() {
             autoCapitalize="none"
             autoCorrect={false}
             onBlur={validateFromMnemonice}
-            // onEndEditing={}
-            // onSubmitEditing
           />
         </TouchableOpacity>
         <Text style={[styles.inputValidationText, styles2.inputValidationText]}>

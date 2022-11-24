@@ -37,7 +37,6 @@ export default function validateMnemonic(
         searchForUnfoundIndexes,
       );
     } else return parseMnemonicChecksum(mnemonicWordsLength, indexes);
-    // wordlists[language][i]
     i += 1;
   }
   if (indexes.filter(index => index === -1).length > 0) {

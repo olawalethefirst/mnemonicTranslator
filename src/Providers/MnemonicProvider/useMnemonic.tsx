@@ -5,41 +5,6 @@ import validateMnemonic from '../../helperFunctions/validateMnemonic';
 const {mnemonicStatus, wordlists} = constants;
 const mnemonicStatusList = Object.values(mnemonicStatus);
 
-// const testLanguage = constants.languages[9];
-// console.log(
-//   'test',
-//   validateMnemonic(
-//     constants.wordlists[testLanguage]
-//       .slice(2000, 2009)
-//       .concat(constants.wordlists[testLanguage].slice(0, 9))
-//       .concat()
-//       .join(`\n     \n    \n `),
-//     testLanguage,
-//   ),
-// );
-// console.log(
-//   'test',
-//   validateMnemonic(
-//     constants.wordlists[testLanguage]
-//       .slice(2000, 2009)
-//       .concat(constants.wordlists[testLanguage].slice(0, 17))
-//       .concat()
-//       .join(`\n     \n    \n `),
-//     testLanguage,
-//   ),
-// );
-// console.log(
-//   'test',
-//   validateMnemonic(
-//     constants.wordlists[testLanguage]
-//       .slice(2000, 2009)
-//       .concat(constants.wordlists[testLanguage].slice(0, 10))
-//       .concat()
-//       .join(`\n     \n    \n `),
-//     testLanguage,
-//   ),
-// );
-
 // actions
 const UPDATE_FROM_MNEMONIC = 'UPDATE_FROM_MNEMONIC';
 const UPDATE_FROM_LANGUAGE = 'UPDATE_FROM_LANGUAGE';
