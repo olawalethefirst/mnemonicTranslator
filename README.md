@@ -14,3 +14,6 @@ To test the app, a clone of the repository and subsequent running of "***npm ins
 ![Simulator Screen Shot - iPhone 12 Pro - 2022-11-24 at 10 51 44](https://user-images.githubusercontent.com/66824020/203755665-46e9ea40-73bd-4014-b977-2235ed2164a6.png)
 
 ![Simulator Screen Shot - iPhone 12 Pro - 2022-11-24 at 10 52 07](https://user-images.githubusercontent.com/66824020/203755647-031d0b68-9a33-435c-b4f5-eeb08fc22e03.png)
+
+## Contributions
+Thanks to **Theophilus Isah** and **Vladmir Fomone** for suggesting and overseeing my implementation of the project.
