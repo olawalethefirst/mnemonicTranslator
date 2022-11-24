@@ -11,8 +11,14 @@ export default function validateMnemonic(
   | typeof mnemonicStatus.INVALID
   | [typeof mnemonicStatus.VALID, number[]]
   | [typeof mnemonicStatus.CHECKSUM_FAILED, number[]] {
+  if (mnemonic.length === 0) return mnemonicStatus.EMPTY;
+
   const mnemonicWords = mnemonic.split(/\s+/);
   const mnemonicWordsLength = mnemonicWords.length;
+
+  if (!(mnemonicWordsLength >= 12 && mnemonicWordsLength <= 24))
+    return mnemonicStatus.INVALID;
+
   let i = 0;
   const indexes = new Array<number>(mnemonicWords.length).fill(-1);
   let unfoundMnemonicWordsIndexes = mnemonicWords.map((_, index) => index);
@@ -24,21 +30,18 @@ export default function validateMnemonic(
     }
     return !foundWordlistIndex;
   }
-  if (mnemonicWordsLength >= 12 && mnemonicWordsLength <= 24) {
-    while (i < wordlists[language].length - 1) {
-      if (unfoundMnemonicWordsIndexes.length > 0) {
-        unfoundMnemonicWordsIndexes = unfoundMnemonicWordsIndexes.filter(
-          searchForUnfoundIndexes,
-        );
-      } else return parseMnemonicChecksum(mnemonicWordsLength, indexes);
-      // wordlists[language][i]
-      i += 1;
-    }
-    if (indexes.filter(index => index === -1).length > 0) {
-      return mnemonicStatus.INVALID;
-    }
-    return parseMnemonicChecksum(mnemonicWordsLength, indexes);
+
+  while (i < wordlists[language].length - 1) {
+    if (unfoundMnemonicWordsIndexes.length > 0) {
+      unfoundMnemonicWordsIndexes = unfoundMnemonicWordsIndexes.filter(
+        searchForUnfoundIndexes,
+      );
+    } else return parseMnemonicChecksum(mnemonicWordsLength, indexes);
+    // wordlists[language][i]
+    i += 1;
   }
-  if (mnemonic.trim().length === 0) return mnemonicStatus.EMPTY;
-  return mnemonicStatus.INVALID;
+  if (indexes.filter(index => index === -1).length > 0) {
+    return mnemonicStatus.INVALID;
+  }
+  return parseMnemonicChecksum(mnemonicWordsLength, indexes);
 }
