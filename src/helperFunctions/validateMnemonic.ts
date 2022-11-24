@@ -7,6 +7,7 @@ export default function validateMnemonic(
   mnemonic: string,
   language: Language,
 ):
+  | typeof mnemonicStatus.EMPTY
   | typeof mnemonicStatus.INVALID
   | [typeof mnemonicStatus.VALID, number[]]
   | [typeof mnemonicStatus.CHECKSUM_FAILED, number[]] {
@@ -38,5 +39,6 @@ export default function validateMnemonic(
     }
     return parseMnemonicChecksum(mnemonicWordsLength, indexes);
   }
+  if (mnemonic.trim().length === 0) return mnemonicStatus.EMPTY;
   return mnemonicStatus.INVALID;
 }

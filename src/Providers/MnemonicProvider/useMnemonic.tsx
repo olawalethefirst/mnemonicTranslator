@@ -44,6 +44,7 @@ const mnemonicStatusList = Object.values(mnemonicStatus);
 const UPDATE_FROM_MNEMONIC = 'UPDATE_FROM_MNEMONIC';
 const UPDATE_FROM_LANGUAGE = 'UPDATE_FROM_LANGUAGE';
 const ACTIVATE_VALIDATING_INPUT = 'ACTIVATE_VALIDATING_INPUT';
+const ACTIVATE_MNEMONIC_EMPTY = 'ACTIVATE_MNEMONIC_EMPTY';
 const ACTIVATE_MNEMONIC_INVALID = 'ACTIVATE_MNEMONIC_INVALID';
 const ACTIVATE_CHECKSUM_FAILED = 'ACTIVATE_CHECKSUM_FAILED';
 const ACTIVATE_MNEMONIC_VALID = 'ACTIVATE_MNEMONIC_VALID';
@@ -66,6 +67,9 @@ interface UpdateFromLanguage {
 }
 interface ActivateValidatingInput {
   type: typeof ACTIVATE_VALIDATING_INPUT;
+}
+interface ActivateMnemonicEmpty {
+  type: typeof ACTIVATE_MNEMONIC_EMPTY;
 }
 interface ActivateMnemonicInvalid {
   type: typeof ACTIVATE_MNEMONIC_INVALID;
@@ -104,6 +108,7 @@ type Action =
   | UpdateFromLanguage
   | UpdateTextInput
   | ActivateValidatingInput
+  | ActivateMnemonicEmpty
   | ActivateMnemonicInvalid
   | ActivateChecksumFailed
   | ActivateMnemonicValid
@@ -182,6 +187,8 @@ const reducer = (
       return {...state, inputStatus: mnemonicStatus.VALIDATING};
     case ACTIVATE_MNEMONIC_INVALID:
       return {...state, inputStatus: mnemonicStatus.INVALID};
+    case ACTIVATE_MNEMONIC_EMPTY:
+      return {...state, inputStatus: mnemonicStatus.EMPTY};
     case ACTIVATE_CHECKSUM_FAILED:
       return {
         ...state,
@@ -273,6 +280,10 @@ export default function useMnemonic() {
       if (result === mnemonicStatus.INVALID) {
         dispatch({
           type: ACTIVATE_MNEMONIC_INVALID,
+        });
+      } else if (result === mnemonicStatus.EMPTY) {
+        dispatch({
+          type: ACTIVATE_MNEMONIC_EMPTY,
         });
       } else if (result[0] === mnemonicStatus.CHECKSUM_FAILED) {
         dispatch({
