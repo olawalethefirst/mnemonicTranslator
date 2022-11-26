@@ -8,12 +8,12 @@ import {MnemonicContext} from '../Providers/MnemonicProvider/MnemonicProvider';
 
 export default function BroadcastToMnemonicPhrase() {
   const {
-    mnemonicState: {broadcastMnemonicVisible, toLanguage, toMnemonicPhrase},
+    mnemonicState: {broadcastToMnemonicVisible, toLanguage, toMnemonicPhrase},
     closeBroadcastMnemonicPhrase,
   } = useContext(MnemonicContext);
 
   return (
-    <ModalContainer isVisible={broadcastMnemonicVisible}>
+    <ModalContainer isVisible={broadcastToMnemonicVisible}>
       <ModalTitle title={toLanguage as Language} />
       <ModalText text={toMnemonicPhrase} />
       <ModalButton onPress={closeBroadcastMnemonicPhrase} title="close" />

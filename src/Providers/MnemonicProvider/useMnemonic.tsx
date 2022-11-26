@@ -5,30 +5,42 @@ import validateMnemonic from '../../helperFunctions/validateMnemonic';
 const {mnemonicStatus, wordlists} = constants;
 const mnemonicStatusList = Object.values(mnemonicStatus);
 
+// modal names
+const CHOOSE_TO_LANGUAGE = 'CHOOSE_TO_LANGUAGE';
+const CHOOSE_FROM_LANGUAGE = 'CHOOSE_FROM_LANGUAGE';
+const BROADCAST_CHECKSUM_FAILED = 'BROADCAST_CHECKSUM_FAILED';
+const BROADCAST_TO_MNEMONIC = 'BROADCAST_TO_MNEMONIC';
+
 // actions
-const UPDATE_FROM_MNEMONIC = 'UPDATE_FROM_MNEMONIC';
 const UPDATE_FROM_LANGUAGE = 'UPDATE_FROM_LANGUAGE';
+const UPDATE_FROM_MNEMONIC = 'UPDATE_FROM_MNEMONIC';
 const ACTIVATE_VALIDATING_INPUT = 'ACTIVATE_VALIDATING_INPUT';
 const ACTIVATE_MNEMONIC_EMPTY = 'ACTIVATE_MNEMONIC_EMPTY';
 const ACTIVATE_MNEMONIC_INVALID = 'ACTIVATE_MNEMONIC_INVALID';
 const ACTIVATE_CHECKSUM_FAILED = 'ACTIVATE_CHECKSUM_FAILED';
 const ACTIVATE_MNEMONIC_VALID = 'ACTIVATE_MNEMONIC_VALID';
 const TRANSLATE_BUTTON_PRESSED = 'TRANSLATE_BUTTON_PRESSED';
-const OPEN_CHOOSE_TO_LANGUAGE = 'OPEN_CHOOSE_TO_LANGUAGE';
-const CLOSE_CHOOSE_TO_LANGUAGE = 'CLOSE_CHOOSE_TO_LANGUAGE';
+const OVERRIDE_CHECKSUM_FAILED = 'OVERRIDE_CHECKSUM_FAILED';
 const CLOSE_BROADCAST_CHECKSUM_FAILED = 'CLOSE_BROADCAST_CHECKSUM_FAILED';
-const TRANSLATE_MNEMONIC = 'TRANSLATE_MNEMONIC';
-const OPEN_BROADCAST_MNEMONIC_PHRASE = 'OPEN_BROADCAST_MNEMONIC_PHRASE';
+const BROADCAST_CHECKSUM_FAILED_CLOSED = 'BROADCAST_CHECKSUM_FAILED_CLOSED';
+const CLOSE_CHOOSE_TO_LANGUAGE = 'CLOSE_CHOOSE_TO_LANGUAGE';
+const CHOOSE_TO_LANGUAGE_CLOSED = 'CHOOSE_TO_LANGUAGE_CLOSED';
+const UPDATE_TO_LANGUAGE = 'UPDATE_TO_LANGUAGE';
 const CLOSE_BROADCAST_MNEMONIC_PHRASE = 'CLOSE_BROADCAST_MNEMONIC_PHRASE';
 
 // type definitions
-interface UpdateTextInput {
-  type: typeof UPDATE_FROM_MNEMONIC;
-  payload: string;
-}
+type ModalType =
+  | typeof CHOOSE_TO_LANGUAGE
+  | typeof CHOOSE_FROM_LANGUAGE
+  | typeof BROADCAST_CHECKSUM_FAILED
+  | typeof BROADCAST_TO_MNEMONIC;
 interface UpdateFromLanguage {
   type: typeof UPDATE_FROM_LANGUAGE;
   payload: Language;
+}
+interface UpdateTextInput {
+  type: typeof UPDATE_FROM_MNEMONIC;
+  payload: string;
 }
 interface ActivateValidatingInput {
   type: typeof ACTIVATE_VALIDATING_INPUT;
@@ -50,22 +62,31 @@ interface ActivateMnemonicValid {
 interface TranslateButtonPressed {
   type: typeof TRANSLATE_BUTTON_PRESSED;
 }
-interface OpenChooseToLanguage {
-  type: typeof OPEN_CHOOSE_TO_LANGUAGE;
-}
-interface CloseChooseToLanguage {
-  type: typeof CLOSE_CHOOSE_TO_LANGUAGE;
-}
-interface TranslateMnemonic {
-  type: typeof TRANSLATE_MNEMONIC;
-  payload: Language;
+interface OverrideChecksumFailed {
+  type: typeof OVERRIDE_CHECKSUM_FAILED;
 }
 interface CloseBroadcastChecksumFailed {
   type: typeof CLOSE_BROADCAST_CHECKSUM_FAILED;
 }
-interface OpenBroadcastMnemonicPhrase {
-  type: typeof OPEN_BROADCAST_MNEMONIC_PHRASE;
+interface BroadcastCheckumFailedClosed {
+  type: typeof BROADCAST_CHECKSUM_FAILED_CLOSED;
 }
+// interface OpenChooseToLanguage {
+//   type: typeof OPEN_CHOOSE_TO_LANGUAGE;
+// }
+interface UpdateToLanguage {
+  type: typeof UPDATE_TO_LANGUAGE;
+  payload: Language;
+}
+interface CloseChooseToLanguage {
+  type: typeof CLOSE_CHOOSE_TO_LANGUAGE;
+}
+interface ChooseToLanguageClosed {
+  type: typeof CHOOSE_TO_LANGUAGE_CLOSED;
+}
+// interface OpenBroadcastMnemonicPhrase {
+//   type: typeof OPEN_BROADCAST_MNEMONIC_PHRASE;
+// }
 interface CloseBroadcastMnemonicPhrase {
   type: typeof CLOSE_BROADCAST_MNEMONIC_PHRASE;
 }
@@ -77,12 +98,13 @@ type Action =
   | ActivateMnemonicInvalid
   | ActivateChecksumFailed
   | ActivateMnemonicValid
-  | TranslateMnemonic
   | TranslateButtonPressed
-  | OpenChooseToLanguage
-  | CloseChooseToLanguage
+  | OverrideChecksumFailed
   | CloseBroadcastChecksumFailed
-  | OpenBroadcastMnemonicPhrase
+  | BroadcastCheckumFailedClosed
+  | UpdateToLanguage
+  | CloseChooseToLanguage
+  | ChooseToLanguageClosed
   | CloseBroadcastMnemonicPhrase;
 export type InputStatus = typeof mnemonicStatusList[number];
 export interface InitialMnemonicState {
@@ -95,8 +117,9 @@ export interface InitialMnemonicState {
   overrideChecksumWarning: boolean;
   chooseToLanguageVisible: boolean;
   chooseFromLanguageVisibile: boolean;
-  broadcastMnemonicVisible: boolean;
+  broadcastToMnemonicVisible: boolean;
   broadcastChecksumFailedVisible: boolean;
+  modalOpenPending: ModalType[];
 }
 
 // useReducer ingredients
@@ -110,8 +133,9 @@ export const initialMnemonicState = {
   overrideChecksumWarning: false,
   chooseToLanguageVisible: false,
   chooseFromLanguageVisibile: true,
-  broadcastMnemonicVisible: false,
+  broadcastToMnemonicVisible: false,
   broadcastChecksumFailedVisible: false,
+  modalOpenPending: [] as ModalType[],
 };
 export const useMnemonicInitialReturn = {
   mnemonicState: initialMnemonicState,
@@ -121,12 +145,14 @@ export const useMnemonicInitialReturn = {
   updateFromMnemonicLanguage: (language: Language) => {},
   validateFromMnemonice: () => {},
   onTranslatePress: () => {},
+  overrideChecksumFailed: () => {},
   closeBroadcastChecksumFailed: () => {},
-  openChooseToLanguage: () => {},
+  onBroadcastChecksumFailedHide: () => {},
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onChooseToLanguage: (language: Language) => {},
   closeChooseToLanguage: () => {},
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onSelectToLanguage: (language: Language) => {},
-  openBroadcastMnemonicPhrase: () => {},
+  onChooseToLanguageHide: () => {},
   closeBroadcastMnemonicPhrase: () => {},
 };
 const reducer = (
@@ -179,17 +205,26 @@ const reducer = (
 
       return {...state, ...changedState};
     }
-    case CLOSE_BROADCAST_CHECKSUM_FAILED:
-      return {...state, broadcastChecksumFailedVisible: false};
-    case OPEN_CHOOSE_TO_LANGUAGE:
+    case OVERRIDE_CHECKSUM_FAILED:
       return {
         ...state,
-        chooseToLanguageVisible: true,
+        broadcastChecksumFailedVisible: false,
         overrideChecksumWarning: true,
+        modalOpenPending: [...state.modalOpenPending, CHOOSE_TO_LANGUAGE],
       };
-    case CLOSE_CHOOSE_TO_LANGUAGE:
-      return {...state, chooseToLanguageVisible: false};
-    case TRANSLATE_MNEMONIC:
+    case CLOSE_BROADCAST_CHECKSUM_FAILED:
+      return {...state, broadcastChecksumFailedVisible: false};
+    case BROADCAST_CHECKSUM_FAILED_CLOSED: {
+      let changedState = {};
+      if (state.modalOpenPending[0] === CHOOSE_TO_LANGUAGE) {
+        changedState = {
+          chooseToLanguageVisible: true,
+          modalOpenPending: state.modalOpenPending.slice(1),
+        };
+      }
+      return {...state, ...changedState};
+    }
+    case UPDATE_TO_LANGUAGE:
       return {
         ...state,
         toLanguage: action.payload,
@@ -197,16 +232,24 @@ const reducer = (
           .map(index => wordlists[action.payload][index])
           .join(' '),
         chooseToLanguageVisible: false,
+        modalOpenPending: [...state.modalOpenPending, BROADCAST_TO_MNEMONIC],
       };
-    case OPEN_BROADCAST_MNEMONIC_PHRASE:
-      return {
-        ...state,
-        broadcastMnemonicVisible: true,
-      };
+    case CLOSE_CHOOSE_TO_LANGUAGE:
+      return {...state, chooseToLanguageVisible: false};
+    case CHOOSE_TO_LANGUAGE_CLOSED: {
+      let changedState = {};
+      if (state.modalOpenPending[0] === BROADCAST_TO_MNEMONIC) {
+        changedState = {
+          broadcastToMnemonicVisible: true,
+          modalOpenPending: state.modalOpenPending.slice(1),
+        };
+      }
+      return {...state, ...changedState};
+    }
     case CLOSE_BROADCAST_MNEMONIC_PHRASE:
       return {
         ...state,
-        broadcastMnemonicVisible: false,
+        broadcastToMnemonicVisible: false,
       };
     default:
       throw new Error('incorrect action type used');
@@ -268,14 +311,25 @@ export default function useMnemonic() {
       type: TRANSLATE_BUTTON_PRESSED,
     });
   };
+  const overrideChecksumFailed = () => {
+    dispatch({
+      type: OVERRIDE_CHECKSUM_FAILED,
+    });
+  };
   const closeBroadcastChecksumFailed = () => {
     dispatch({
       type: 'CLOSE_BROADCAST_CHECKSUM_FAILED',
     });
   };
-  const openChooseToLanguage = () => {
+  const onBroadcastChecksumFailedHide = () => {
     dispatch({
-      type: OPEN_CHOOSE_TO_LANGUAGE,
+      type: BROADCAST_CHECKSUM_FAILED_CLOSED,
+    });
+  };
+  const onChooseToLanguage = (language: Language) => {
+    dispatch({
+      type: UPDATE_TO_LANGUAGE,
+      payload: language,
     });
   };
   const closeChooseToLanguage = () => {
@@ -283,15 +337,9 @@ export default function useMnemonic() {
       type: CLOSE_CHOOSE_TO_LANGUAGE,
     });
   };
-  const onSelectToLanguage = (language: Language) => {
+  const onChooseToLanguageHide = () => {
     dispatch({
-      type: TRANSLATE_MNEMONIC,
-      payload: language,
-    });
-  };
-  const openBroadcastMnemonicPhrase = () => {
-    dispatch({
-      type: OPEN_BROADCAST_MNEMONIC_PHRASE,
+      type: CHOOSE_TO_LANGUAGE_CLOSED,
     });
   };
   const closeBroadcastMnemonicPhrase = () => {
@@ -306,11 +354,12 @@ export default function useMnemonic() {
     updateFromMnemonicLanguage,
     validateFromMnemonice,
     onTranslatePress,
+    overrideChecksumFailed,
     closeBroadcastChecksumFailed,
-    openChooseToLanguage,
+    onBroadcastChecksumFailedHide,
+    onChooseToLanguage,
     closeChooseToLanguage,
-    onSelectToLanguage,
-    openBroadcastMnemonicPhrase,
+    onChooseToLanguageHide,
     closeBroadcastMnemonicPhrase,
   };
 }
