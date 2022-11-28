@@ -1,6 +1,7 @@
 import {View, Text} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import palette from '../palette';
+import constants from '../constants';
 
 const styles = ScaledSheet.create({
   titleContainer: {
@@ -21,7 +22,9 @@ const styles = ScaledSheet.create({
 export default function ModalText({text}: {text: string}) {
   return (
     <View style={styles.titleContainer}>
-      <Text style={styles.title}>{text}</Text>
+      <Text testID={constants.testIDs.modalText} style={styles.title}>
+        {text}
+      </Text>
     </View>
   );
 }

@@ -36,7 +36,8 @@ export default function ModalButton({
     <TouchableOpacity
       activeOpacity={constants.buttonActiveOpacity}
       style={styles.button}
-      onPress={onPress}>
+      onPress={onPress}
+      testID={constants.testIDs.modalButton}>
       <Text style={[styles.buttonTitle, styles2.buttonTitle]}>{title}</Text>
     </TouchableOpacity>
   );

@@ -3,7 +3,10 @@ import {ScaledSheet} from 'react-native-size-matters';
 import constants, {Language} from '../constants';
 import palette from '../palette';
 
-const {buttonActiveOpacity} = constants;
+const {
+  buttonActiveOpacity,
+  testIDs: {languageItem},
+} = constants;
 
 const styles = ScaledSheet.create({
   buttonTitle: {
@@ -39,13 +42,16 @@ export default function LanguageItem({
   });
 
   return (
-    <View style={[styles2.container]}>
+    <View style={[styles2.container]} testID={languageItem.language}>
       <View style={styles2.buttonBorderContainer}>
         <TouchableOpacity
+          testID={languageItem.button}
           onPress={() => onPressItem(content)}
           activeOpacity={buttonActiveOpacity}
           style={styles2.button}>
-          <Text style={[styles.buttonTitle, styles2.buttonTitle]}>
+          <Text
+            testID={languageItem.text}
+            style={[styles.buttonTitle, styles2.buttonTitle]}>
             {content}
           </Text>
         </TouchableOpacity>

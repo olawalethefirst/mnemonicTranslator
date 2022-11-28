@@ -53,7 +53,17 @@ const constants = {
       input: 'screenInput',
       validationText: 'screenValidationText',
       button: 'screenButton',
-      chooseFromLanguage: {},
+    },
+    languageItem: {
+      language: 'language',
+      button: 'languageButton',
+      text: 'languageText',
+    },
+    modal: 'modal',
+    modalButton: 'modalButton',
+    modalText: 'modalText',
+    modalTitle: {
+      text: 'modalTitleText',
     },
   },
 } as const;

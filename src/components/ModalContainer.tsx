@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import {PropsWithChildren} from 'react';
 import {ScaledSheet} from 'react-native-size-matters';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import constants from '../constants';
 
 const styles = ScaledSheet.create({
   modal: {
@@ -32,6 +33,7 @@ function ModalContainer({
       onModalHide={onModalHide}
       onBackButtonPress={dismissModal}
       onBackdropPress={dismissModal}
+      testID={constants.testIDs.modal}
       useNativeDriver
       hideModalContentWhileAnimating
       style={styles.modal}
