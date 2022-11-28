@@ -18,16 +18,20 @@ const styles = ScaledSheet.create({
 function ModalContainer({
   isVisible,
   children,
+  dismissModal,
   onModalHide,
-}: PropsWithChildren<{isVisible: boolean; onModalHide?: () => void}>) {
+}: PropsWithChildren<{
+  isVisible: boolean;
+  dismissModal?: () => void;
+  onModalHide?: () => void;
+}>) {
   return (
     <Modal
       coverScreen={false}
       isVisible={isVisible}
       onModalHide={onModalHide}
-      // onBackButtonPress
-      // onBackdropPress
-      // onModalHide
+      onBackButtonPress={dismissModal}
+      onBackdropPress={dismissModal}
       useNativeDriver
       hideModalContentWhileAnimating
       style={styles.modal}
@@ -44,6 +48,7 @@ function ModalContainer({
 
 ModalContainer.defaultProps = {
   onModalHide: undefined,
+  dismissModal: undefined,
 };
 
 export default ModalContainer;

@@ -16,6 +16,7 @@ export default function BroadcastChecksumFailed() {
   return (
     <ModalContainer
       isVisible={broadcastChecksumFailedVisible}
+      dismissModal={closeBroadcastChecksumFailed}
       onModalHide={onBroadcastChecksumFailedHide}>
       <ModalTitle title="Checksum verification failed" />
       <ModalText text="Do you want to proceed with translation?" />

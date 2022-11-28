@@ -13,7 +13,9 @@ export default function BroadcastToMnemonicPhrase() {
   } = useContext(MnemonicContext);
 
   return (
-    <ModalContainer isVisible={broadcastToMnemonicVisible}>
+    <ModalContainer
+      dismissModal={closeBroadcastMnemonicPhrase}
+      isVisible={broadcastToMnemonicVisible}>
       <ModalTitle title={toLanguage as Language} />
       <ModalText text={toMnemonicPhrase} />
       <ModalButton onPress={closeBroadcastMnemonicPhrase} title="close" />
