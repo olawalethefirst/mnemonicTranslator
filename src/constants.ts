@@ -48,6 +48,14 @@ const constants = {
     CHECKSUM_FAILED: 'CHECKSUM_FAILED',
     VALID: 'VALID',
   },
+  testIDs: {
+    screen: {
+      input: 'screenInput',
+      validationText: 'screenValidationText',
+      button: 'screenButton',
+      chooseFromLanguage: {},
+    },
+  },
 } as const;
 
 export default constants;

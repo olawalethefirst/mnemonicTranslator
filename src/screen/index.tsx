@@ -16,7 +16,12 @@ import styles from './styles';
 import {InputStatus} from '../Providers/MnemonicProvider/useMnemonic';
 import {MnemonicContext} from '../Providers/MnemonicProvider/MnemonicProvider';
 
-const {mnemonicStatus} = constants;
+const {
+  mnemonicStatus,
+  testIDs: {
+    screen: {input, validationText, button},
+  },
+} = constants;
 
 // helperFunctions
 const parseInputValidationText = (inputStatus: InputStatus) => {
@@ -110,16 +115,20 @@ function Screen() {
             autoCapitalize="none"
             autoCorrect={false}
             onBlur={validateFromMnemonice}
+            testID={input}
           />
         </TouchableOpacity>
-        <Text style={[styles.inputValidationText, styles2.inputValidationText]}>
+        <Text
+          testID={validationText}
+          style={[styles.inputValidationText, styles2.inputValidationText]}>
           {parseInputValidationText(inputStatus)}
         </Text>
         <TouchableOpacity
           onPress={onTranslatePress}
           disabled={disableButton}
           activeOpacity={constants.buttonActiveOpacity}
-          style={[styles.button, styles2.button]}>
+          style={[styles.button, styles2.button]}
+          testID={button}>
           {inputStatus === mnemonicStatus.VALIDATING ? (
             <ActivityIndicator color={palette.white} />
           ) : (
