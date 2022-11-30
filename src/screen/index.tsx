@@ -19,20 +19,20 @@ import {MnemonicContext} from '../Providers/MnemonicProvider/MnemonicProvider';
 const {
   mnemonicStatus,
   testIDs: {screen},
-  validationText,
+  validationReport,
 } = constants;
 
 // helperFunctions
 const parseInputValidationText = (inputStatus: InputStatus) => {
   switch (inputStatus) {
     case mnemonicStatus.VALID:
-      return validationText.valid;
+      return validationReport.valid;
     case mnemonicStatus.INVALID:
-      return validationText.invalid;
+      return validationReport.invalid;
     case mnemonicStatus.CHECKSUM_FAILED:
-      return validationText.checksumIncorrect;
+      return validationReport.checksumIncorrect;
     default:
-      return validationText.empty;
+      return validationReport.empty;
   }
 };
 const parseInputValidationTextColor = (inputStatus: InputStatus) => {

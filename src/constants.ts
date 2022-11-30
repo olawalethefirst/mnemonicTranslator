@@ -48,7 +48,7 @@ const constants = {
     CHECKSUM_FAILED: 'CHECKSUM_FAILED',
     VALID: 'VALID',
   },
-  validationText: {
+  validationReport: {
     invalid: 'Mnemonic phrase invalid',
     checksumIncorrect: 'Mnemonic phrase failed checksum test',
     valid: 'Mnemonic phrase valid',
