@@ -18,22 +18,21 @@ import {MnemonicContext} from '../Providers/MnemonicProvider/MnemonicProvider';
 
 const {
   mnemonicStatus,
-  testIDs: {
-    screen: {input, validationText, button},
-  },
+  testIDs: {screen},
+  validationText,
 } = constants;
 
 // helperFunctions
 const parseInputValidationText = (inputStatus: InputStatus) => {
   switch (inputStatus) {
     case mnemonicStatus.VALID:
-      return 'Mnemonic phrase valid';
+      return validationText.valid;
     case mnemonicStatus.INVALID:
-      return 'Mnemonic phrase invalid';
+      return validationText.invalid;
     case mnemonicStatus.CHECKSUM_FAILED:
-      return 'Mnemonic phrase failed checksum test';
+      return validationText.checksumIncorrect;
     default:
-      return ' ';
+      return validationText.empty;
   }
 };
 const parseInputValidationTextColor = (inputStatus: InputStatus) => {
@@ -115,11 +114,11 @@ function Screen() {
             autoCapitalize="none"
             autoCorrect={false}
             onBlur={validateFromMnemonice}
-            testID={input}
+            testID={screen.input}
           />
         </TouchableOpacity>
         <Text
-          testID={validationText}
+          testID={screen.validationText}
           style={[styles.inputValidationText, styles2.inputValidationText]}>
           {parseInputValidationText(inputStatus)}
         </Text>
@@ -128,7 +127,7 @@ function Screen() {
           disabled={disableButton}
           activeOpacity={constants.buttonActiveOpacity}
           style={[styles.button, styles2.button]}
-          testID={button}>
+          testID={screen.button}>
           {inputStatus === mnemonicStatus.VALIDATING ? (
             <ActivityIndicator color={palette.white} />
           ) : (

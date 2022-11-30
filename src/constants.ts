@@ -48,6 +48,12 @@ const constants = {
     CHECKSUM_FAILED: 'CHECKSUM_FAILED',
     VALID: 'VALID',
   },
+  validationText: {
+    invalid: 'Mnemonic phrase invalid',
+    checksumIncorrect: 'Mnemonic phrase failed checksum test',
+    valid: 'Mnemonic phrase valid',
+    empty: ' ',
+  },
   testIDs: {
     screen: {
       input: 'screenInput',
@@ -59,6 +65,7 @@ const constants = {
       button: 'languageButton',
       text: 'languageText',
     },
+
     modal: 'modal',
     modalButton: 'modalButton',
     modalText: 'modalText',
