@@ -6,9 +6,7 @@ import constants from '../constants';
 const styles = ScaledSheet.create({
   titleContainer: {
     backgroundColor: palette.whiteBackground,
-    width: '100%',
-    aspectRatio: 6,
-    justifyContent: 'center',
+    padding: '13.5@msr',
     borderRadius: '7.5@mvsr',
   },
   title: {
