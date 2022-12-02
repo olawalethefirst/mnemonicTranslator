@@ -49,25 +49,29 @@ const parseInputValidationTextColor = (inputStatus: InputStatus) => {
 };
 
 function Screen() {
+  // state
   const [inputLabelHeight, setInputLabelHeight] = useState(0);
+  const [inputTop, setInputTop] = useState(0);
   const {
     mnemonicState,
     updateFromMenmonicPhrase,
     validateFromMnemonice,
     onTranslatePress,
   } = useContext(MnemonicContext);
-  const inputRef = useRef<TextInput | null>(null);
-
-  // state
   const {fromMnemonicPhrase, inputStatus} = mnemonicState;
   const disableButton =
     inputStatus === mnemonicStatus.VALIDATING ||
     inputStatus === mnemonicStatus.EMPTY ||
     inputStatus === mnemonicStatus.INVALID;
 
+  const inputRef = useRef<TextInput | null>(null);
+
   // helperFunctions
   const updateInputLabelHeight = useCallback((e: LayoutChangeEvent) => {
     setInputLabelHeight(e.nativeEvent.layout.height);
+  }, []);
+  const updateInputTop = useCallback((e: LayoutChangeEvent) => {
+    setInputTop(e.nativeEvent.layout.y);
   }, []);
   const focusTextInput = useCallback(() => {
     inputRef.current?.focus();
@@ -76,8 +80,11 @@ function Screen() {
   // state dependent styles
   const styles2 = {
     inputLabel: {
-      top: -inputLabelHeight / 2,
-      opacity: inputLabelHeight === 0 ? 0 : 1,
+      top:
+        inputTop !== 0 && inputLabelHeight !== 0
+          ? inputTop - inputLabelHeight / 2
+          : 0,
+      opacity: inputTop !== 0 && inputLabelHeight !== 0 ? 1 : 0,
     },
     button: {
       opacity: disableButton ? constants.buttonActiveOpacity : 1,
@@ -95,15 +102,16 @@ function Screen() {
         <View style={styles.headerContainer}>
           <Text style={styles.header}>Enter your {'\n'}Mnemonic phrase</Text>
         </View>
+        <Text
+          onLayout={updateInputLabelHeight}
+          style={[styles.inputLabel, styles2.inputLabel]}>
+          words separated by spaces
+        </Text>
         <TouchableOpacity
+          onLayout={updateInputTop}
           onPress={focusTextInput}
           activeOpacity={constants.buttonActiveOpacity}
           style={styles.inputContainer}>
-          <Text
-            onLayout={updateInputLabelHeight}
-            style={[styles.inputLabel, styles2.inputLabel]}>
-            words separated by spaces
-          </Text>
           <TextInput
             value={fromMnemonicPhrase}
             onChangeText={updateFromMenmonicPhrase}

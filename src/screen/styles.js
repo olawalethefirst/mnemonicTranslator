@@ -28,6 +28,9 @@ export default ScaledSheet.create({
     padding: '13.5@msr',
   },
   inputLabel: {
+    padding: 0,
+    marginHorizontal: constants.screenMargin,
+    zIndex: 1,
     position: 'absolute',
     fontSize: '14@msr',
     left: '15@msr',
