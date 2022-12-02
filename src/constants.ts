@@ -40,7 +40,7 @@ const constants = {
     // 'Swahili',
   },
   fromLanguageListTitle: 'Choose your language',
-  toLanguageListTitle: 'Choose a new language',
+  toLanguageListTitle: 'Choose new language',
   mnemonicStatus: {
     EMPTY: 'EMPTY',
     VALIDATING: 'VALIDATING',
