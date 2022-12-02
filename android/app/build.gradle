@@ -218,10 +218,12 @@ android {
             keyPassword 'android'
         }
         release {
-            storeFile file('mnemonicTranslator.keystore')
-            storePassword System.console().readLine("\nKeystore password:")
-            keyAlias System.console().readLine("\nAlias: ")
-            keyPassword System.console().readLine("\nAlias password:")
+            if (project.hasProperty('MNEMONIC_TRANSLATOR_UPLOAD_STORE_FILE')) {
+                storeFile file(MNEMONIC_TRANSLATOR_UPLOAD_STORE_FILE)
+                storePassword MNEMONIC_TRANSLATOR_UPLOAD_STORE_PASSWORD
+                keyAlias MNEMONIC_TRANSLATOR_UPLOAD_KEY_ALIAS
+                keyPassword MNEMONIC_TRANSLATOR_UPLOAD_KEY_PASSWORD
+            }
         }
     }
     buildTypes {
