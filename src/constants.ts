@@ -8,6 +8,7 @@ import japanese from './wordlists/japanese.json';
 import korean from './wordlists/korean.json';
 import portuguese from './wordlists/portuguese.json';
 import spanish from './wordlists/spanish.json';
+import swahili from './wordlists/swahili.json';
 
 const constants = {
   screenMargin: 25,
@@ -24,7 +25,7 @@ const constants = {
     'Korean',
     'Portuguese',
     'Spanish',
-    // 'Swahili',
+    'Swahili',
   ],
   wordlists: {
     'Chinese (Simplified)': chinese_simplified,
@@ -37,7 +38,7 @@ const constants = {
     Korean: korean,
     Portuguese: portuguese,
     Spanish: spanish,
-    // 'Swahili',
+    Swahili: swahili,
   },
   fromLanguageListTitle: 'Choose your language',
   toLanguageListTitle: 'Choose new language',
