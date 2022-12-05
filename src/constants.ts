@@ -14,19 +14,19 @@ const constants = {
   screenMargin: 25,
   buttonActiveOpacity: 0.65,
   headerHeight: 55,
-  languages: [
-    'Chinese (Simplified)',
-    'Chinese (Traditional)',
-    'Czech',
-    'English',
-    'French',
-    'Italian',
-    'Japanese',
-    'Korean',
-    'Portuguese',
-    'Spanish',
-    'Swahili',
-  ],
+  languages: {
+    chineseSimplified: 'Chinese (Simplified)',
+    chineseTraditional: 'Chinese (Traditional)',
+    czech: 'Czech',
+    english: 'English',
+    french: 'French',
+    italian: 'Italian',
+    japanese: 'Japanese',
+    korean: 'Korean',
+    portuguese: 'Portuguese',
+    spanish: 'Spanish',
+    swahili: 'Swahili',
+  },
   wordlists: {
     'Chinese (Simplified)': chinese_simplified,
     'Chinese (Traditional)': chinese_traditional,
@@ -78,4 +78,5 @@ const constants = {
 
 export default constants;
 
-export type Language = typeof constants.languages[number];
+const languagesList = Object.values(constants.languages);
+export type Language = typeof languagesList[number];

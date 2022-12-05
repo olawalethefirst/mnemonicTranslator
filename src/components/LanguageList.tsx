@@ -7,6 +7,7 @@ import LanguageItem from './LanguageItem';
 import {MnemonicContext} from '../Providers/MnemonicProvider/MnemonicProvider';
 
 const {languages} = constants;
+const languagesList = Object.values(languages);
 
 const styles = ScaledSheet.create({
   container: {
@@ -27,20 +28,20 @@ export default function LanguageList({
   const {
     mnemonicState: {fromLanguage},
   } = useContext(MnemonicContext);
-  const languagesExcludingFromLanguage = languages.filter(
+  const languagesExcludingFromLanguage = languagesList.filter(
     val => val !== fromLanguage,
   );
 
   return (
     <ScrollView style={styles.container}>
-      {(toLanguages ? languagesExcludingFromLanguage : languages).map(
+      {(toLanguages ? languagesExcludingFromLanguage : languagesList).map(
         (language, index) => (
           <LanguageItem
             content={language}
             onPressItem={onPressItem}
             lastItem={
               index ===
-              (toLanguages ? languagesExcludingFromLanguage : languages)
+              (toLanguages ? languagesExcludingFromLanguage : languagesList)
                 .length -
                 1
             }
