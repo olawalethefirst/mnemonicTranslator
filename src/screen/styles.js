@@ -44,6 +44,20 @@ export default ScaledSheet.create({
     fontSize: '16.5@msr',
     fontFamily: 'Inter Bold',
     padding: 0,
+    flex: 1,
+  },
+  suggestionsContainer: {
+    position: 'absolute',
+    backgroundColor: palette.green,
+    left: 0,
+    right: 0,
+    height: '25@mvsr',
+  },
+  suggestionButton: {justifyContent: 'center', paddingHorizontal: `15@msr`},
+  suggestionText: {
+    color: palette.white,
+    fontSize: '12.5@msr',
+    fontFamily: 'Inter Regular',
   },
   button: {
     marginTop: '45@mvsr',

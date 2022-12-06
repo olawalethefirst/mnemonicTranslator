@@ -9,6 +9,7 @@ import {
   LayoutChangeEvent,
   ActivityIndicator,
   Platform,
+  FlatList,
 } from 'react-native';
 import palette from '../palette';
 import constants from '../constants';
@@ -52,13 +53,18 @@ function Screen() {
   // state
   const [inputLabelHeight, setInputLabelHeight] = useState(0);
   const [inputTop, setInputTop] = useState(0);
+  const [inputContainerHeight, setInputContainerHeight] = useState(0);
+  const [inputContentHeight, setInputContentHeight] = useState(0);
+
   const {
     mnemonicState,
     updateFromMenmonicPhrase,
+    clearSuggestions,
+    chooseSuggestion,
     validateFromMnemonice,
     onTranslatePress,
   } = useContext(MnemonicContext);
-  const {fromMnemonicPhrase, inputStatus} = mnemonicState;
+  const {fromMnemonicPhrase, inputStatus, inputSuggestions} = mnemonicState;
   const disableButton =
     inputStatus === mnemonicStatus.VALIDATING ||
     inputStatus === mnemonicStatus.EMPTY ||
@@ -92,13 +98,21 @@ function Screen() {
     inputValidationText: {
       color: parseInputValidationTextColor(inputStatus),
     },
+    suggestionsContainer: {
+      top: Math.min(
+        inputContentHeight + (Platform.OS === 'ios' ? 5 : 0),
+        inputContainerHeight,
+      ),
+    },
   };
 
   return (
     <KeyboardAvoidingView
       style={styles.keyboardAvoidingView}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={styles.container}>
         <View style={styles.headerContainer}>
           <Text style={styles.header}>Enter your {'\n'}Mnemonic phrase</Text>
         </View>
@@ -112,18 +126,50 @@ function Screen() {
           onPress={focusTextInput}
           activeOpacity={constants.buttonActiveOpacity}
           style={styles.inputContainer}>
-          <TextInput
-            value={fromMnemonicPhrase}
-            onChangeText={updateFromMenmonicPhrase}
-            ref={inputRef}
-            multiline
-            style={styles.input}
-            textAlignVertical="top"
-            autoCapitalize="none"
-            autoCorrect={false}
-            onBlur={validateFromMnemonice}
-            testID={screen.input}
-          />
+          <View
+            style={{flex: 1}}
+            onLayout={e =>
+              setInputContainerHeight(e.nativeEvent.layout.height)
+            }>
+            <TextInput
+              onPressIn={clearSuggestions}
+              value={fromMnemonicPhrase}
+              onChangeText={updateFromMenmonicPhrase}
+              onContentSizeChange={e => {
+                setInputContentHeight(e.nativeEvent.contentSize.height);
+              }}
+              ref={inputRef}
+              multiline
+              style={styles.input}
+              textAlignVertical="top"
+              autoCapitalize="none"
+              autoCorrect={false}
+              onBlur={validateFromMnemonice}
+              testID={screen.input}
+            />
+            {inputSuggestions.length > 0 ? (
+              <View
+                style={[
+                  styles.suggestionsContainer,
+                  styles2.suggestionsContainer,
+                ]}>
+                <FlatList
+                  keyboardShouldPersistTaps="always"
+                  contentContainerStyle={{justifyContent: 'center'}}
+                  horizontal
+                  data={inputSuggestions}
+                  keyExtractor={item => item}
+                  renderItem={({item}) => (
+                    <TouchableOpacity
+                      onPress={() => chooseSuggestion(item)}
+                      style={styles.suggestionButton}>
+                      <Text style={styles.suggestionText}>{item}</Text>
+                    </TouchableOpacity>
+                  )}
+                />
+              </View>
+            ) : null}
+          </View>
         </TouchableOpacity>
         <Text
           testID={screen.validationText}

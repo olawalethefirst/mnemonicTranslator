@@ -1,6 +1,7 @@
 import {useReducer, Reducer} from 'react';
 import constants, {Language} from '../../constants';
 import validateMnemonic from '../../helperFunctions/validateMnemonic';
+import parseSuggestions from '../../helperFunctions/parseSuggestions';
 
 const {mnemonicStatus, wordlists} = constants;
 const mnemonicStatusList = Object.values(mnemonicStatus);
@@ -14,6 +15,9 @@ const BROADCAST_TO_MNEMONIC = 'BROADCAST_TO_MNEMONIC';
 // actions
 const UPDATE_FROM_LANGUAGE = 'UPDATE_FROM_LANGUAGE';
 const UPDATE_FROM_MNEMONIC = 'UPDATE_FROM_MNEMONIC';
+const UPDATE_SUGGESTIONS = 'UPDATE_SUGGESTIONS';
+const CLEAR_SUGGESTIONS = 'CLEAR_SUGGESTIONS';
+const CHOOSE_SUGGESTION = 'CHOOSE_SUGGESTION';
 const ACTIVATE_VALIDATING_INPUT = 'ACTIVATE_VALIDATING_INPUT';
 const ACTIVATE_MNEMONIC_EMPTY = 'ACTIVATE_MNEMONIC_EMPTY';
 const ACTIVATE_MNEMONIC_INVALID = 'ACTIVATE_MNEMONIC_INVALID';
@@ -38,8 +42,19 @@ interface UpdateFromLanguage {
   type: typeof UPDATE_FROM_LANGUAGE;
   payload: Language;
 }
-interface UpdateTextInput {
+interface UpdateFromMnemonic {
   type: typeof UPDATE_FROM_MNEMONIC;
+  payload: string;
+}
+interface UpdateSuggestions {
+  type: typeof UPDATE_SUGGESTIONS;
+  payload: string[];
+}
+interface ClearSuggestions {
+  type: typeof CLEAR_SUGGESTIONS;
+}
+interface ChooseSuggestion {
+  type: typeof CHOOSE_SUGGESTION;
   payload: string;
 }
 interface ActivateValidatingInput {
@@ -71,9 +86,6 @@ interface CloseBroadcastChecksumFailed {
 interface BroadcastCheckumFailedClosed {
   type: typeof BROADCAST_CHECKSUM_FAILED_CLOSED;
 }
-// interface OpenChooseToLanguage {
-//   type: typeof OPEN_CHOOSE_TO_LANGUAGE;
-// }
 interface UpdateToLanguage {
   type: typeof UPDATE_TO_LANGUAGE;
   payload: Language;
@@ -84,15 +96,15 @@ interface CloseChooseToLanguage {
 interface ChooseToLanguageClosed {
   type: typeof CHOOSE_TO_LANGUAGE_CLOSED;
 }
-// interface OpenBroadcastMnemonicPhrase {
-//   type: typeof OPEN_BROADCAST_MNEMONIC_PHRASE;
-// }
 interface CloseBroadcastMnemonicPhrase {
   type: typeof CLOSE_BROADCAST_MNEMONIC_PHRASE;
 }
 type Action =
   | UpdateFromLanguage
-  | UpdateTextInput
+  | UpdateFromMnemonic
+  | UpdateSuggestions
+  | ClearSuggestions
+  | ChooseSuggestion
   | ActivateValidatingInput
   | ActivateMnemonicEmpty
   | ActivateMnemonicInvalid
@@ -120,6 +132,7 @@ export interface InitialMnemonicState {
   broadcastToMnemonicVisible: boolean;
   broadcastChecksumFailedVisible: boolean;
   modalOpenPending: ModalType[];
+  inputSuggestions: string[];
 }
 
 // useReducer ingredients
@@ -136,6 +149,7 @@ export const initialMnemonicState = {
   broadcastToMnemonicVisible: false,
   broadcastChecksumFailedVisible: false,
   modalOpenPending: [] as ModalType[],
+  inputSuggestions: [] as string[],
 };
 export const useMnemonicInitialReturn = {
   mnemonicState: initialMnemonicState,
@@ -143,6 +157,9 @@ export const useMnemonicInitialReturn = {
   updateFromMenmonicPhrase: (text: string) => {},
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updateFromMnemonicLanguage: (language: Language) => {},
+  clearSuggestions: () => {},
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  chooseSuggestion: (text: string) => {},
   validateFromMnemonice: () => {},
   onTranslatePress: () => {},
   overrideChecksumFailed: () => {},
@@ -173,13 +190,40 @@ const reducer = (
         inputStatus: mnemonicStatus.EMPTY,
         mnemonicWordlistIndexes: [],
         overrideChecksumWarning: false,
+        inputSuggestions: [],
       };
+    case UPDATE_SUGGESTIONS:
+      return {...state, inputSuggestions: action.payload};
+    case CLEAR_SUGGESTIONS:
+      return {...state, inputSuggestions: []};
+    case CHOOSE_SUGGESTION: {
+      const mnemonicWord = state.fromMnemonicPhrase.split(/\s+/);
+      const lastWordLength = mnemonicWord[mnemonicWord.length - 1].length;
+
+      return {
+        ...state,
+        fromMnemonicPhrase: state.fromMnemonicPhrase
+          .slice(0, -lastWordLength)
+          .concat(`${action.payload} `),
+        inputSuggestions: [],
+      };
+    }
     case ACTIVATE_VALIDATING_INPUT:
-      return {...state, inputStatus: mnemonicStatus.VALIDATING};
+      return {
+        ...state,
+        inputStatus: mnemonicStatus.VALIDATING,
+        inputSuggestions: [],
+      };
     case ACTIVATE_MNEMONIC_INVALID:
-      return {...state, inputStatus: mnemonicStatus.INVALID};
+      return {
+        ...state,
+        inputStatus: mnemonicStatus.INVALID,
+      };
     case ACTIVATE_MNEMONIC_EMPTY:
-      return {...state, inputStatus: mnemonicStatus.EMPTY};
+      return {
+        ...state,
+        inputStatus: mnemonicStatus.EMPTY,
+      };
     case ACTIVATE_CHECKSUM_FAILED:
       return {
         ...state,
@@ -256,6 +300,8 @@ const reducer = (
   }
 };
 
+let suggestionTimer: number;
+
 export default function useMnemonic() {
   const [mnemonicState, dispatch] = useReducer<
     Reducer<InitialMnemonicState, Action>
@@ -270,7 +316,35 @@ export default function useMnemonic() {
       payload: language,
     });
   };
+  const updateSuggestions = (text: string) => {
+    if (fromLanguage) {
+      clearTimeout(suggestionTimer);
+
+      if (!/\s+/.exec(text[text.length - 1])) {
+        const words = text.split(/\s+/);
+        const lastWord = words[words.length - 1];
+        if (lastWord.length >= 3) {
+          suggestionTimer = setTimeout(() => {
+            dispatch({
+              type: UPDATE_SUGGESTIONS,
+              payload: parseSuggestions(fromLanguage, lastWord),
+            });
+          }, 300);
+        }
+      }
+    }
+  };
+  const clearSuggestions = () => {
+    dispatch({type: CLEAR_SUGGESTIONS});
+  };
+  const chooseSuggestion = (suggestion: string) => {
+    dispatch({
+      type: CHOOSE_SUGGESTION,
+      payload: suggestion,
+    });
+  };
   const updateFromMenmonicPhrase = (text: string) => {
+    updateSuggestions(text);
     dispatch({
       type: UPDATE_FROM_MNEMONIC,
       payload: text,
@@ -350,8 +424,10 @@ export default function useMnemonic() {
 
   return {
     mnemonicState,
-    updateFromMenmonicPhrase,
     updateFromMnemonicLanguage,
+    updateFromMenmonicPhrase,
+    clearSuggestions,
+    chooseSuggestion,
     validateFromMnemonice,
     onTranslatePress,
     overrideChecksumFailed,
