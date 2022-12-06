@@ -1,11 +1,14 @@
 import constants, {Language} from '../constants';
 import isLatinoBased from './isLatinoBased';
+import sortWithSubstring from './sortWithSubstring';
+import sortWithPhraseOrdering from './sortWithPhraseOrdering';
 
 const {wordlists} = constants;
 
 const parseSuggestions = (language: Language, phrase: string) => {
+  const returnArray: string[] = [];
   if (isLatinoBased(language)) {
-    return wordlists[language].filter(word => {
+    const suggestions = wordlists[language].filter(word => {
       const wordLetters = word.split('');
       const phraseLetters = phrase.split('');
       let searchFailed = false;
@@ -26,8 +29,22 @@ const parseSuggestions = (language: Language, phrase: string) => {
       }
       return !searchFailed;
     });
+    const filteredWithSubstring = sortWithSubstring(suggestions, phrase);
+    const orderedMatchesWithSubstring = sortWithPhraseOrdering(
+      filteredWithSubstring[0],
+      phrase,
+    );
+    const orderedUnMatchedWithSubstring = sortWithPhraseOrdering(
+      filteredWithSubstring[1],
+      phrase,
+    );
+
+    return returnArray.concat(
+      ...orderedMatchesWithSubstring,
+      ...orderedUnMatchedWithSubstring,
+    );
   }
-  return [];
+  return returnArray;
 };
 
 export default parseSuggestions;

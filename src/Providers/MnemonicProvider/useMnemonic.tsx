@@ -3,6 +3,8 @@ import constants, {Language} from '../../constants';
 import validateMnemonic from '../../helperFunctions/validateMnemonic';
 import parseSuggestions from '../../helperFunctions/parseSuggestions';
 
+// console.log(parseSuggestions('English', 'tra').length);
+
 const {mnemonicStatus, wordlists} = constants;
 const mnemonicStatusList = Object.values(mnemonicStatus);
 
@@ -300,8 +302,6 @@ const reducer = (
   }
 };
 
-let suggestionTimer: number;
-
 export default function useMnemonic() {
   const [mnemonicState, dispatch] = useReducer<
     Reducer<InitialMnemonicState, Action>
@@ -316,24 +316,30 @@ export default function useMnemonic() {
       payload: language,
     });
   };
-  const updateSuggestions = (text: string) => {
-    if (fromLanguage) {
-      clearTimeout(suggestionTimer);
+  const generateUpdateSuggestion = () => {
+    let suggestionTimer: number;
 
-      if (!/\s+/.exec(text[text.length - 1])) {
-        const words = text.split(/\s+/);
-        const lastWord = words[words.length - 1];
-        if (lastWord.length >= 3) {
-          suggestionTimer = setTimeout(() => {
-            dispatch({
-              type: UPDATE_SUGGESTIONS,
-              payload: parseSuggestions(fromLanguage, lastWord),
-            });
-          }, 300);
+    return (text: string) => {
+      if (fromLanguage) {
+        clearTimeout(suggestionTimer);
+
+        if (!/\s+/.exec(text[text.length - 1])) {
+          const words = text.split(/\s+/);
+          const lastWord = words[words.length - 1];
+          if (lastWord.length >= 3) {
+            suggestionTimer = setTimeout(() => {
+              dispatch({
+                type: UPDATE_SUGGESTIONS,
+                payload: parseSuggestions(fromLanguage, lastWord),
+              });
+            }, 300);
+          }
         }
       }
-    }
+    };
   };
+  const updateSuggestions = generateUpdateSuggestion();
+
   const clearSuggestions = () => {
     dispatch({type: CLEAR_SUGGESTIONS});
   };
