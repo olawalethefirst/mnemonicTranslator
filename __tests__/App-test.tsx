@@ -11,29 +11,12 @@ import {
   fireEvent,
 } from '@testing-library/react-native';
 // eslint-disable-next-line import/extensions
-import App from '../App.tsx';
+import App from '../App';
 // import {cleanup, render, screen, fireEvent} from './utils';
 // import Screen from '../src/screen';
 import constants from '../src/constants';
 
 const {testIDs} = constants;
-
-// it('renders correctly', () => {
-//   renderer.create(<App />);
-// });
-
-function call2(fn) {
-  this.a = 'call1';
-  console.log(this, 'in call');
-  const unNamed = () => {
-    this.b = 'unNamed';
-    fn(this);
-    console.log(this, 'in unNamed');
-  };
-  unNamed();
-}
-
-call2(console.log);
 
 afterEach(cleanup);
 
