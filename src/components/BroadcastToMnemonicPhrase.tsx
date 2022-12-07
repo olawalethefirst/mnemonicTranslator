@@ -18,7 +18,7 @@ export default function BroadcastToMnemonicPhrase() {
       isVisible={broadcastToMnemonicVisible}>
       <ModalTitle title={toLanguage as Language} />
       <ModalText text={toMnemonicPhrase} />
-      <ModalButton onPress={closeBroadcastMnemonicPhrase} title="close" />
+      <ModalButton onPress={closeBroadcastMnemonicPhrase} title="Close" />
     </ModalContainer>
   );
 }
