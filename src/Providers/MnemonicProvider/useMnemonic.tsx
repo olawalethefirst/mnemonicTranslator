@@ -3,8 +3,6 @@ import constants, {Language} from '../../constants';
 import validateMnemonic from '../../helperFunctions/validateMnemonic';
 import parseSuggestions from '../../helperFunctions/parseSuggestions';
 
-// console.log(parseSuggestions('English', 'tra').length);
-
 const {mnemonicStatus, wordlists} = constants;
 const mnemonicStatusList = Object.values(mnemonicStatus);
 
@@ -307,7 +305,6 @@ export default function useMnemonic() {
     Reducer<InitialMnemonicState, Action>
   >(reducer, initialMnemonicState);
 
-  // console.log(mnemonicState);
   const {fromLanguage, fromMnemonicPhrase} = mnemonicState;
 
   const updateFromMnemonicLanguage = (language: Language) => {
