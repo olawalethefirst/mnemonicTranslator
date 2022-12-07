@@ -21,6 +21,7 @@ const {
   mnemonicStatus,
   testIDs: {screen},
   validationReport,
+  accessibilityLabel,
 } = constants;
 
 // helperFunctions
@@ -146,6 +147,7 @@ function Screen() {
               autoCorrect={false}
               onBlur={validateFromMnemonice}
               testID={screen.input}
+              accessibilityLabel={accessibilityLabel.screen.input}
             />
             {inputSuggestions.length > 0 ? (
               <View
@@ -177,6 +179,7 @@ function Screen() {
           {parseInputValidationText(inputStatus)}
         </Text>
         <TouchableOpacity
+          accessibilityLabel={accessibilityLabel.screen.button}
           onPress={onTranslatePress}
           disabled={disableButton}
           activeOpacity={constants.buttonActiveOpacity}
