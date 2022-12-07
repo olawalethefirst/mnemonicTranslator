@@ -13,7 +13,7 @@ export default function ChooseFromLanguage() {
 
   return (
     <ModalContainer isVisible={chooseFromLanguageVisibile}>
-      <ModalTitle title={constants.fromLanguageListTitle} />
+      <ModalTitle title={constants.modalTitles.fromLanguageListTitle} />
       <LanguageList onPressItem={updateFromMnemonicLanguage} />
     </ModalContainer>
   );

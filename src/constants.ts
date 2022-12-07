@@ -40,8 +40,11 @@ const constants = {
     Spanish: spanish,
     Swahili: swahili,
   },
-  fromLanguageListTitle: 'Choose your language',
-  toLanguageListTitle: 'Choose new language',
+  modalTitles: {
+    fromLanguageListTitle: 'Choose your language',
+    toLanguageListTitle: 'Choose new language',
+    checksumFailed: 'Checksum verification failed',
+  },
   mnemonicStatus: {
     EMPTY: 'EMPTY',
     VALIDATING: 'VALIDATING',
@@ -72,6 +75,12 @@ const constants = {
     modalText: 'modalText',
     modalTitle: {
       text: 'modalTitleText',
+    },
+  },
+  accessibilityLabel: {
+    screen: {
+      input: 'Input mnemonic phrase',
+      button: 'translate mnemonic',
     },
   },
 } as const;

@@ -19,7 +19,7 @@ export default function ChooseToLanguage() {
       isVisible={chooseToLanguageVisible}
       dismissModal={closeChooseToLanguage}
       onModalHide={onChooseToLanguageHide}>
-      <ModalTitle title={constants.toLanguageListTitle} />
+      <ModalTitle title={constants.modalTitles.toLanguageListTitle} />
       <LanguageList toLanguages onPressItem={onChooseToLanguage} />
       <ModalButton title="Cancel" onPress={closeChooseToLanguage} />
     </ModalContainer>
