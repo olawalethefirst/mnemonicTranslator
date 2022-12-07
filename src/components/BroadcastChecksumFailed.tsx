@@ -4,6 +4,7 @@ import ModalTitle from './ModalTitle';
 import ModalButton from './ModalButton';
 import ModalText from './ModalText';
 import {MnemonicContext} from '../Providers/MnemonicProvider/MnemonicProvider';
+import constants from '../constants';
 
 export default function BroadcastChecksumFailed() {
   const {
@@ -18,7 +19,7 @@ export default function BroadcastChecksumFailed() {
       isVisible={broadcastChecksumFailedVisible}
       dismissModal={closeBroadcastChecksumFailed}
       onModalHide={onBroadcastChecksumFailedHide}>
-      <ModalTitle title="Checksum verification failed" />
+      <ModalTitle title={constants.modalTitles.checksumFailed} />
       <ModalText text="Do you want to proceed with translation?" />
       <ModalButton onPress={overrideChecksumFailed} title="Yes" submitType />
       <ModalButton onPress={closeBroadcastChecksumFailed} title="No" />
