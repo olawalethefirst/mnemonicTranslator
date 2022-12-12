@@ -19,4 +19,4 @@ APK file for android can be downloaded [here](https://drive.google.com/file/d/11
 ![Simulator Screen Shot - iPhone 12 Pro - 2022-11-24 at 10 52 07](https://user-images.githubusercontent.com/66824020/203755647-031d0b68-9a33-435c-b4f5-eeb08fc22e03.png)
 
 ## Contributions
-Thanks to **[Theophilus Isah](https://github.com/Extheoisah)** and **[Vladmir Fomone](https://github.com/vladimirfomene)** for suggesting and overseeing the project.
+Thanks to **[Theophilus Isah](https://github.com/Extheoisah)** and **[Vladmir Fomone](https://github.com/vladimirfomene)** for suggesting and collaborating on the project.
